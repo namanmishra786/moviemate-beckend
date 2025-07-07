@@ -3,16 +3,29 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import movieRoutes from "./routes/movieRoutes.js";
-import authRoutes from "./routes/authRoutes.js"; // ✅ Fix here
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// ✅ ✅ ✅ Set allowed origins
+const allowedOrigins = [
+  "https://moviemate-frontend.vercel.app",
+  "http://localhost:3000"
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true // if you ever use cookies
+  })
+);
+
 app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
-app.use("/api/auth", authRoutes); // ✅ Fix here
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
