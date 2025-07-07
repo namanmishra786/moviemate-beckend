@@ -12,7 +12,8 @@ const app = express();
 // ✅ Allowed origins for CORS
 const allowedOrigins = [
   "https://moviemate-frontend.vercel.app",
-  "http://localhost:3000"
+  "http://localhost:5173",
+  "https://moviemate123.netlify.app" // ✅ Added Netlify
 ];
 
 app.use(
