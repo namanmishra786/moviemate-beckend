@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-// ✅ ✅ ✅ Set allowed origins
+// ✅ Allowed origins for CORS
 const allowedOrigins = [
   "https://moviemate-frontend.vercel.app",
   "http://localhost:3000"
@@ -18,12 +18,13 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: true // if you ever use cookies
+    credentials: true // if you use cookies later
   })
 );
 
 app.use(express.json());
 
+// ✅ Your routes
 app.use("/api/movies", movieRoutes);
 app.use("/api/auth", authRoutes);
 
@@ -33,8 +34,8 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
-    app.listen(PORT, () =>
-      console.log(`🚀 Server running on http://localhost:${PORT}`)
+    app.listen(PORT, "0.0.0.0", () =>
+      console.log(`🚀 Server running on http://0.0.0.0:${PORT}`)
     );
   })
   .catch((err) => {
